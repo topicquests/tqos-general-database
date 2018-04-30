@@ -1,0 +1,5 @@
+2018-04-29 19:34:37 DEBUG LoggingPlatform:38 - SentenceClient.get org.apache.commons.dbcp2.DelegatingResultSet@2344fc66[_res=org.apache.commons.dbcp2.DelegatingResultSet@458ad742[_res=org.postgresql.jdbc.PgResultSet@5afa04c, _stmt=SELECT sentence FROM tqos_asr.sentences WHERE id = 'BastTa', _conn=null], _stmt=SELECT sentence FROM tqos_asr.sentences WHERE id = 'BastTa', _conn=null]  | 
+2018-04-29 19:34:37 DEBUG LoggingPlatform:38 - SentenceClient.get-1 {"id":"BastTa"}
+2018-04-29 19:34:37 DEBUG LoggingPlatform:38 - SentenceClient.listByDocId FirstDoc null  | 
+2018-04-29 19:34:37 DEBUG LoggingPlatform:38 - SentenceClient.listByDocId SecondDoc null  | 
+2018-04-29 19:34:37 DEBUG LoggingPlatform:38 - SentenceClient.size null  | 
