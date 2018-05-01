@@ -11,6 +11,17 @@ BEGIN
 END
 $do$;
 
+-- Switch to the tq_admin user to create the database for TQ objects.
+SET ROLE tq_admin;
+
+-- Create the database.
+CREATE DATABASE tqos_database ENCODING UTF8;
+
+-- Switch to tq_database.
+\c tqos_database
+
+SET ROLE tq_admin;
+
 --
 -- Create a schema to hide the proxy tables from public view.
 --

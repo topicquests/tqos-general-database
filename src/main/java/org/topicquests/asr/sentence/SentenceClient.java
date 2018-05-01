@@ -25,20 +25,14 @@ import net.minidev.json.parser.JSONParser;
  */
 public class SentenceClient implements ISentenceClient {
 	private GeneralDatabaseEnvironment environment;
-	private IPostgreSqlProvider provider;
-	private PostgresConnectionFactory database = null;
-
+	private PostgresConnectionFactory provider;
 
 	/**
 	 * 
 	 */
-	public SentenceClient(GeneralDatabaseEnvironment env, IPostgreSqlProvider p) {
+	public SentenceClient(GeneralDatabaseEnvironment env, PostgresConnectionFactory p) {
 		environment = env;
 		provider = p;
-		String dbName = environment.getStringProperty("DatabaseName");
-		String schema = environment.getStringProperty("DatabaseSchema");
-	    database = new PostgresConnectionFactory(dbName, schema);
-
 	}
 
 	/* (non-Javadoc)
@@ -50,7 +44,7 @@ public class SentenceClient implements ISentenceClient {
 	    IPostgresConnection conn = null;
 	    IResult r = null;
 	    try {
-	    	conn = database.getConnection();
+	    	conn = provider.getConnection();
 			r = conn.beginTransaction();
 			if (r.hasError())
 				result.addErrorString(r.getErrorString());
@@ -89,7 +83,7 @@ public class SentenceClient implements ISentenceClient {
 	    IPostgresConnection conn = null;
 	    IResult r = null;
 	    try {
-	    	conn = database.getConnection();
+	    	conn = provider.getConnection();
 			r = conn.beginTransaction();
 			if (r.hasError())
 				result.addErrorString(r.getErrorString());
@@ -126,7 +120,7 @@ public class SentenceClient implements ISentenceClient {
 	    IPostgresConnection conn = null;
 	    IResult r = new ResultPojo();
 	    try {
-	    	conn = database.getConnection();
+	    	conn = provider.getConnection();
 			conn.setProxyRole(r);
 			if (r.hasError())
 				result.addErrorString(r.getErrorString());
@@ -161,7 +155,7 @@ public class SentenceClient implements ISentenceClient {
 	    IPostgresConnection conn = null;
 	    IResult r = null;
 	    try {
-	    	conn = database.getConnection();
+	    	conn = provider.getConnection();
 			r = conn.beginTransaction();
 			if (r.hasError())
 				result.addErrorString(r.getErrorString());
@@ -195,12 +189,12 @@ public class SentenceClient implements ISentenceClient {
 	    IPostgresConnection conn = null;
 	    IResult r = new ResultPojo();
 	    try {
-	    	conn = database.getConnection();
+	    	conn = provider.getConnection();
 			conn.setProxyRole(r);
 			if (r.hasError())
 				result.addErrorString(r.getErrorString());
 			String sql = IGeneralSchema.LIST_BY_PARA;
-			conn.executeSQL(sql, r, paragraphId);
+			conn.executeSelect(sql, r, paragraphId);
 			if (r.hasError())
 				result.addErrorString(r.getErrorString());
 			ResultSet rs = (ResultSet)r.getResultObject();
@@ -237,9 +231,9 @@ public class SentenceClient implements ISentenceClient {
 	    IPostgresConnection conn = null;
 	    IResult r = new ResultPojo();
 	    try {
-	    	conn = database.getConnection();
+	    	conn = provider.getConnection();
 			String sql = IGeneralSchema.LIST_BY_DOC;
-			conn.executeSQL(sql, r, docId);
+			conn.executeSelect(sql, r, docId);
 			ResultSet rs = (ResultSet)r.getResultObject();
 			environment.logDebug("SentenceClient.listByDocId "+docId+" "+rs+"  | "+r.getErrorString());
 			if (rs != null) {
@@ -272,7 +266,7 @@ public class SentenceClient implements ISentenceClient {
 	    IPostgresConnection conn = null;
 	    IResult r = null;
 	    try {
-	    	conn = database.getConnection();
+	    	conn = provider.getConnection();
 			r = conn.beginTransaction();
 			if (r.hasError())
 				result.addErrorString(r.getErrorString());
@@ -302,12 +296,12 @@ public class SentenceClient implements ISentenceClient {
 	    IPostgresConnection conn = null;
 	    IResult r = new ResultPojo();
 	    try {
-	    	conn = database.getConnection();
+	    	conn = provider.getConnection();
 			//conn.setProxyRole(r);
 			//if (r.hasError())
 			//	result.addErrorString(r.getErrorString());
 			String sql = IGeneralSchema.SIZE_SENTENCE;
-			conn.executeSQL(sql, r);
+			conn.executeSelect(sql, r);
 			ResultSet rs = (ResultSet)r.getResultObject();
 			environment.logDebug("SentenceClient.size "+rs+"  | "+r.getErrorString());
 			long val = 0;

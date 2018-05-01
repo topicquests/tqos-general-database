@@ -11,7 +11,6 @@ import org.topicquests.asr.general.GeneralDatabaseEnvironment;
 import org.topicquests.asr.general.api.IGeneralSchema;
 import org.topicquests.asr.general.document.api.IDocumentClient;
 import org.topicquests.pg.PostgresConnectionFactory;
-import org.topicquests.pg.api.IPostgreSqlProvider;
 import org.topicquests.pg.api.IPostgresConnection;
 import org.topicquests.support.ResultPojo;
 import org.topicquests.support.api.IResult;
@@ -25,18 +24,14 @@ import net.minidev.json.parser.JSONParser;
  */
 public class DocumentClient implements IDocumentClient {
 	private GeneralDatabaseEnvironment environment;
-	private IPostgreSqlProvider provider;
-	private PostgresConnectionFactory database = null;
+	private PostgresConnectionFactory provider;
 
 	/**
 	 * 
 	 */
-	public DocumentClient(GeneralDatabaseEnvironment env, IPostgreSqlProvider p) {
+	public DocumentClient(GeneralDatabaseEnvironment env, PostgresConnectionFactory p) {
 		environment = env;
 		provider = p;
-		String dbName = environment.getStringProperty("DatabaseName");
-		String schema = environment.getStringProperty("DatabaseSchema");
-	    database = new PostgresConnectionFactory(dbName, schema);
 	}
 
 	/* (non-Javadoc)
@@ -48,7 +43,7 @@ public class DocumentClient implements IDocumentClient {
 	    IPostgresConnection conn = null;
 	    IResult r = null;
 	    try {
-	    	conn = database.getConnection();
+	    	conn = provider.getConnection();
 			r = conn.beginTransaction();
 			if (r.hasError())
 				result.addErrorString(r.getErrorString());
@@ -84,7 +79,7 @@ public class DocumentClient implements IDocumentClient {
 	    IPostgresConnection conn = null;
 	    IResult r = null;
 	    try {
-	    	conn = database.getConnection();
+	    	conn = provider.getConnection();
 			r = conn.beginTransaction();
 			if (r.hasError())
 				result.addErrorString(r.getErrorString());
@@ -119,7 +114,7 @@ public class DocumentClient implements IDocumentClient {
 	    IPostgresConnection conn = null;
 	    IResult r = new ResultPojo();
 	    try {
-	    	conn = database.getConnection();
+	    	conn = provider.getConnection();
 			conn.setProxyRole(r);
 			if (r.hasError())
 				result.addErrorString(r.getErrorString());
@@ -152,7 +147,7 @@ public class DocumentClient implements IDocumentClient {
 	    IPostgresConnection conn = null;
 	    IResult r = null;
 	    try {
-	    	conn = database.getConnection();
+	    	conn = provider.getConnection();
 			r = conn.beginTransaction();
 			if (r.hasError())
 				result.addErrorString(r.getErrorString());
@@ -186,7 +181,7 @@ public class DocumentClient implements IDocumentClient {
 	    IPostgresConnection conn = null;
 	    IResult r = new ResultPojo();
 	    try {
-	    	conn = database.getConnection();
+	    	conn = provider.getConnection();
 			conn.setProxyRole(r);
 			if (r.hasError())
 				result.addErrorString(r.getErrorString());
@@ -236,7 +231,7 @@ public class DocumentClient implements IDocumentClient {
 	    IPostgresConnection conn = null;
 	    IResult r = null;
 	    try {
-	    	conn = database.getConnection();
+	    	conn = provider.getConnection();
 			r = conn.beginTransaction();
 			if (r.hasError())
 				result.addErrorString(r.getErrorString());
@@ -265,7 +260,7 @@ public class DocumentClient implements IDocumentClient {
 	    IPostgresConnection conn = null;
 	    IResult r = new ResultPojo();
 	    try {
-	    	conn = database.getConnection();
+	    	conn = provider.getConnection();
 			conn.setProxyRole(r);
 			if (r.hasError())
 				result.addErrorString(r.getErrorString());
