@@ -45,11 +45,7 @@ public class DocumentClient implements IDocumentClient {
 	    try {
 	    	conn = provider.getConnection();
 			r = conn.beginTransaction();
-			if (r.hasError())
-				result.addErrorString(r.getErrorString());
 			conn.setProxyRole(r);
-			if (r.hasError())
-				result.addErrorString(r.getErrorString());
 			String sql = IGeneralSchema.INSERT_DOCUMENT;
 			Object [] vals = new Object [2];
 			vals[0] = docId;
@@ -62,8 +58,6 @@ public class DocumentClient implements IDocumentClient {
 			e.printStackTrace();
 		}
 	    conn.endTransaction(r);
-		if (r.hasError())
-			result.addErrorString(r.getErrorString());
 	    conn.closeConnection(r);
 		if (r.hasError())
 			result.addErrorString(r.getErrorString());
@@ -115,9 +109,6 @@ public class DocumentClient implements IDocumentClient {
 	    IResult r = new ResultPojo();
 	    try {
 	    	conn = provider.getConnection();
-			conn.setProxyRole(r);
-			if (r.hasError())
-				result.addErrorString(r.getErrorString());
 			String sql = IGeneralSchema.GET_DOCUMENT;
 			conn.executeSelect(sql, r, docId);
 			ResultSet rs = (ResultSet)r.getResultObject();
@@ -182,25 +173,23 @@ public class DocumentClient implements IDocumentClient {
 	    IResult r = new ResultPojo();
 	    try {
 	    	conn = provider.getConnection();
-			conn.setProxyRole(r);
-			if (r.hasError())
-				result.addErrorString(r.getErrorString());
 			String sql;
-			if (count == -1)
+			Object [] vals = null;
+			if (count < 0)
 				sql = IGeneralSchema.LIST_DOCUMENTS;
-			else
+			else {
 				sql = IGeneralSchema.LIST_DOCUMENTS_FULL;
-			int sz = 1;
-			if (count > -1)
-				sz ++;
-			Object [] vals = new Object[sz];
-			vals[0] = start;
-			if (sz > 1)
+				vals = new Object[2];
+				vals[0] = start;
 				vals[1] = count;
-			
+			}			
 			System.out.println("DocumentClient.listDocuments "+start+" "+count+" "+sql);
-			conn.executeSQL(sql, r, vals);
+			if (count < 0)
+				conn.executeSelect(sql, r);
+			else
+				conn.executeSelect(sql, r, vals);
 			ResultSet rs = (ResultSet)r.getResultObject();
+			environment.logDebug("DocumentClient.listDocuments "+rs+"  | "+r.getErrorString());
 			if (rs != null) {
 				String json;
 				JSONParser p;
@@ -208,7 +197,7 @@ public class DocumentClient implements IDocumentClient {
 				List<JSONObject> sents = new ArrayList<JSONObject>();
 				result.setResultObject(sents);
 				while (rs.next()) {
-					json = rs.getString("document");
+					json = rs.getString(1);
 					p = new JSONParser(JSONParser.MODE_JSON_SIMPLE);
 					jo = (JSONObject)p.parse(json);
 					sents.add(jo);
@@ -254,6 +243,7 @@ public class DocumentClient implements IDocumentClient {
 			result.addErrorString(r.getErrorString());
 		return result;
 	}
+	
 	@Override
 	public IResult size() {
 		IResult result = new ResultPojo();
@@ -261,16 +251,15 @@ public class DocumentClient implements IDocumentClient {
 	    IResult r = new ResultPojo();
 	    try {
 	    	conn = provider.getConnection();
-			conn.setProxyRole(r);
-			if (r.hasError())
-				result.addErrorString(r.getErrorString());
 			String sql = IGeneralSchema.SIZE_DOCUMENT;
-			conn.executeSQL(sql, r);
+			conn.executeSelect(sql, r);
 			ResultSet rs = (ResultSet)r.getResultObject();
+			environment.logDebug("DocumentClient.size "+rs+"  | "+r.getErrorString());
 			long val = 0;
 			if (rs != null && rs.next()) {
 					val = rs.getLong("count");
 			}
+			result.setResultObject(new Long(val));
 			
 		} catch (Exception e) {
 			environment.logError(e.getMessage(), e);

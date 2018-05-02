@@ -14,9 +14,10 @@ public class DatabaseTester {
 	 */
 	public static void main(String[] args) {
 		//new BootTest();
-		new FirstTest();
+		//new FirstTest();
 		//new ClearDatabase();
 		//new DocumentTest();
+		new TupleTest();
 
 	}
 

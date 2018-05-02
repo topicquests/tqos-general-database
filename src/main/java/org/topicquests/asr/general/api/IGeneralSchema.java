@@ -52,13 +52,13 @@ public interface IGeneralSchema {
 			"SELECT document FROM tqos_asr.documents ORDER BY id OFFSET ? LIMIT ?";
 	public static final String
 		LIST_DOCUMENTS = 
-			"SELECT document FROM tqos_asr.documents ORDER BY id OFFSET ?";
+			"SELECT document FROM tqos_asr.documents";
 	public static final String
 		CLEAR_DOCUMENT =
 			"DELETE FROM tqos_asr.documents";
 	public static final String
 		SIZE_DOCUMENT =
-			"SELECT count(id) FROM tqos_asr.documents";
+			"SELECT count(*) FROM tqos_asr.documents";
 	public static final String
 		INSERT_TUPLE =
 			"INSERT INTO tqos_asr.tuples VALUES(?, ?)";
@@ -73,7 +73,7 @@ public interface IGeneralSchema {
 			"UPDATE tuples SET tqos_asr.tuple = ? WHERE id = ?";
 	public static final String
 		LIST_TUPLES_FULL = 
-			"SELECT tuple FROM tqos_asr.tuples ORDER BY id LIMIT ? OFFSET ?";
+			"SELECT tuple FROM tqos_asr.tuples ORDER BY id OFFSET ?";
 	public static final String
 		CLEAR_TUPLE =
 			"DELETE FROM tqos_asr.tuples";

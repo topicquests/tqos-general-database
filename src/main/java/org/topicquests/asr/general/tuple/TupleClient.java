@@ -45,26 +45,18 @@ public class TupleClient implements ITupleClient {
 	    try {
 	    	conn = provider.getConnection();
 			r = conn.beginTransaction();
-			if (r.hasError())
-				result.addErrorString(r.getErrorString());
 			conn.setProxyRole(r);
-			if (r.hasError())
-				result.addErrorString(r.getErrorString());
 			String sql = IGeneralSchema.INSERT_TUPLE;
 			Object [] vals = new Object[2];
 			vals[0] = tupleId;
 			vals[1] = tuple.toJSONString();
 			conn.executeSQL(sql, r, vals);
-			if (r.hasError())
-				result.addErrorString(r.getErrorString());
 		} catch (Exception e) {
 			environment.logError(e.getMessage(), e);
 			result.addErrorString(e.getMessage());
 			e.printStackTrace();
 		}
 	    conn.endTransaction(r);
-		if (r.hasError())
-			result.addErrorString(r.getErrorString());
 	    conn.closeConnection(r);
 		if (r.hasError())
 			result.addErrorString(r.getErrorString());
@@ -119,8 +111,6 @@ public class TupleClient implements ITupleClient {
 	    try {
 	    	conn = provider.getConnection();
 			conn.setProxyRole(r);
-			if (r.hasError())
-				result.addErrorString(r.getErrorString());
 			String sql = IGeneralSchema.GET_TUPLE;
 			conn.executeSelect(sql, r, tupleId);
 			ResultSet rs = (ResultSet)r.getResultObject();
@@ -186,17 +176,20 @@ public class TupleClient implements ITupleClient {
 	    try {
 	    	conn = provider.getConnection();
 			conn.setProxyRole(r);
-			if (r.hasError())
-				result.addErrorString(r.getErrorString());
 			String sql = IGeneralSchema.LIST_TUPLES_FULL;
-			Object [] vals = new Object[2];
-			if (count == -1)
-				vals[0] = "ALL";
-			else
-				vals[0] = count;
-			vals[1] =  start;
-			conn.executeSQL(sql, r, vals);
+			int siz = 1;
+			if (count > 0)
+				siz ++;
+			Object [] vals = new Object[siz];
+			vals[0] = start;
+			if (siz == 2) {
+				sql += " LIMIT ?";
+				vals[1] = count;
+			}
+
+			conn.executeSelect(sql, r, vals);
 			ResultSet rs = (ResultSet)r.getResultObject();
+			environment.logDebug("TupleClient.listTuples "+rs+" "+r.getErrorString());
 			if (rs != null) {
 				String json;
 				JSONParser p;
@@ -261,11 +254,8 @@ public class TupleClient implements ITupleClient {
 	    IResult r = new ResultPojo();
 	    try {
 	    	conn = provider.getConnection();
-			conn.setProxyRole(r);
-			if (r.hasError())
-				result.addErrorString(r.getErrorString());
 			String sql = IGeneralSchema.SIZE_TUPLE;
-			conn.executeSQL(sql, r);
+			conn.executeSelect(sql, r);
 			ResultSet rs = (ResultSet)r.getResultObject();
 			long val = 0;
 			if (rs != null && rs.next()) {

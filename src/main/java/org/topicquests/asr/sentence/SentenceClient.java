@@ -297,9 +297,6 @@ public class SentenceClient implements ISentenceClient {
 	    IResult r = new ResultPojo();
 	    try {
 	    	conn = provider.getConnection();
-			//conn.setProxyRole(r);
-			//if (r.hasError())
-			//	result.addErrorString(r.getErrorString());
 			String sql = IGeneralSchema.SIZE_SENTENCE;
 			conn.executeSelect(sql, r);
 			ResultSet rs = (ResultSet)r.getResultObject();
