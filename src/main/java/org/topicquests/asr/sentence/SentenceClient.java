@@ -11,7 +11,6 @@ import org.topicquests.asr.general.GeneralDatabaseEnvironment;
 import org.topicquests.asr.general.api.IGeneralSchema;
 import org.topicquests.asr.sentence.api.ISentenceClient;
 import org.topicquests.pg.PostgresConnectionFactory;
-import org.topicquests.pg.api.IPostgreSqlProvider;
 import org.topicquests.pg.api.IPostgresConnection;
 import org.topicquests.support.ResultPojo;
 import org.topicquests.support.api.IResult;

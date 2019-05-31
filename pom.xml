@@ -4,7 +4,7 @@
 
     <groupId>org.topicquests</groupId>
     <artifactId>tqos-general-database</artifactId>
-    <version>0.1.2-SNAPSHOT</version>
+    <version>0.1.3-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>tqos-general-database</name>
@@ -28,6 +28,15 @@
 
     <build>
       <plugins>
+      <!-- required for jdk > 1.8 -->
+	        <plugin>
+	        <groupId>org.apache.maven.plugins</groupId>
+	        <artifactId>maven-compiler-plugin</artifactId>
+	        <configuration>
+	            <source>1.6</source>
+	            <target>1.6</target>
+	        </configuration>
+	    	</plugin>
         <plugin>
           <groupId>org.sonatype.plugins</groupId>
           <artifactId>nexus-staging-maven-plugin</artifactId>
@@ -121,7 +130,7 @@
       <dependency>
         <groupId>org.topicquests</groupId>
         <artifactId>tqks-common</artifactId>
-        <version>1.2.0-SNAPSHOT</version>
+        <version>1.3.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.topicquests</groupId>
@@ -131,7 +140,7 @@
       <dependency>
         <groupId>org.topicquests</groupId>
         <artifactId>tqks-postgresql-provider</artifactId>
-        <version>0.7.0-SNAPSHOT</version>
+        <version>0.9.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.topicquests</groupId>
