@@ -38,7 +38,7 @@ public class DocumentClient implements IDocumentClient {
 	 * @see org.topicquests.asr.general.document.api.IDocumentClient#put(java.lang.String, net.minidev.json.JSONObject)
 	 */
 	@Override
-	public IResult put(String docId, JSONObject document) {
+	public IResult put(String docId, String label, JSONObject document) {
 		IResult result = new ResultPojo();
 	    IPostgresConnection conn = null;
 	    IResult r = null;
@@ -47,9 +47,10 @@ public class DocumentClient implements IDocumentClient {
 			r = conn.beginTransaction();
 			conn.setProxyRole(r);
 			String sql = IGeneralSchema.INSERT_DOCUMENT;
-			Object [] vals = new Object [2];
+			Object [] vals = new Object [3];
 			vals[0] = docId;
-			vals[1] = document.toJSONString();
+			vals[1] = label;
+			vals[2] = document.toJSONString();
 			conn.executeSQL(sql, r, vals);
 			environment.logDebug("DocumentClient.put "+r.getErrorString()+" "+r.getResultObject());
 		} catch (Exception e) {
@@ -275,5 +276,35 @@ public class DocumentClient implements IDocumentClient {
 	public void shutDown() {
 		//
 	}
+
+	@Override
+	public IResult findByLabel(String label) {
+		IResult result = new ResultPojo();
+		List<JSONObject> docs = new ArrayList<JSONObject>();
+		result.setResultObject(docs);
+	    IPostgresConnection conn = null;
+	    IResult r = new ResultPojo();
+	    try {
+	    	conn = provider.getConnection();
+			String sql = IGeneralSchema.FIND_DOCUMENT;
+			conn.executeSelect(sql, r, label);
+			ResultSet rs = (ResultSet)r.getResultObject();
+			if (rs != null) {
+				while( rs.next()) {
+					String json = rs.getString("document");
+					JSONParser p = new JSONParser(JSONParser.MODE_JSON_SIMPLE);
+					JSONObject jo = (JSONObject)p.parse(json);
+					docs.add(jo);
+				}
+			}
+		} catch (Exception e) {
+			environment.logError(e.getMessage(), e);
+			result.addErrorString(e.getMessage());
+			e.printStackTrace();
+		}
+	    conn.closeConnection(r);
+		if (r.hasError())
+			result.addErrorString(r.getErrorString());
+		return result;	}
 
 }

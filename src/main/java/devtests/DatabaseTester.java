@@ -17,7 +17,8 @@ public class DatabaseTester {
 		//new FirstTest();
 		//new ClearDatabase();
 		//new DocumentTest();
-		new TupleTest();
+		//new TupleTest();
+		new FindTest();
 
 	}
 

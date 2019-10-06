@@ -4,7 +4,7 @@
 
     <groupId>org.topicquests</groupId>
     <artifactId>tqos-general-database</artifactId>
-    <version>0.1.3-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>tqos-general-database</name>
@@ -29,14 +29,14 @@
     <build>
       <plugins>
       <!-- required for jdk > 1.8 -->
-	        <plugin>
+	   <plugin>
 	        <groupId>org.apache.maven.plugins</groupId>
 	        <artifactId>maven-compiler-plugin</artifactId>
 	        <configuration>
 	            <source>1.6</source>
 	            <target>1.6</target>
 	        </configuration>
-	    	</plugin>
+	    </plugin>
         <plugin>
           <groupId>org.sonatype.plugins</groupId>
           <artifactId>nexus-staging-maven-plugin</artifactId>
@@ -74,20 +74,6 @@
               </manifest>
             </archive>
           </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-gpg-plugin</artifactId>
-          <version>1.6</version>
-          <executions>
-            <execution>
-              <id>sign-artifacts</id>
-              <phase>verify</phase>
-              <goals>
-                <goal>sign</goal>
-              </goals>
-            </execution>
-          </executions>
         </plugin>
         <plugin>
           <groupId>org.owasp</groupId>
@@ -130,12 +116,7 @@
       <dependency>
         <groupId>org.topicquests</groupId>
         <artifactId>tqks-common</artifactId>
-        <version>1.3.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.topicquests</groupId>
-        <artifactId>tq-support</artifactId>
-        <version>1.7.3-SNAPSHOT</version>
+        <version>1.4.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.topicquests</groupId>
@@ -145,7 +126,7 @@
       <dependency>
         <groupId>org.topicquests</groupId>
         <artifactId>tqks-elastic6-provider</artifactId>
-        <version>0.2.0</version>
+        <version>0.4.0-SNAPSHOT</version>
       </dependency>
       <dependency>
 	<groupId>org.postgresql</groupId>
@@ -156,21 +137,6 @@
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
         <version>19.0</version>
-      </dependency>
-      <dependency>
-	<groupId>net.bitnine</groupId>
-	<artifactId>agensgraph-jdbc</artifactId>
-	<version>1.2.0</version>
-      </dependency>
-      <dependency>
-        <groupId>net.minidev</groupId>
-        <artifactId>json-smart</artifactId>
-        <version>2.2.1</version>
-      </dependency>
-      <dependency>
-        <groupId>net.minidev</groupId>
-        <artifactId>accessors-smart</artifactId>
-        <version>1.1</version>
       </dependency>
       <dependency>
 	<groupId>org.junit.jupiter</groupId>

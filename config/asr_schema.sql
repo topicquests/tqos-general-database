@@ -14,11 +14,11 @@ $do$;
 -- Switch to the tq_admin user to create the database for TQ objects.
 SET ROLE tq_admin;
 
--- Create the database.
-CREATE DATABASE tqos_database ENCODING UTF8;
+-- Create the database. *Custom name the database*
+CREATE DATABASE newdoctest ENCODING UTF8;
 
 -- Switch to tq_database.
-\c tqos_database
+\c newdoctest
 
 SET ROLE tq_admin;
 
@@ -44,9 +44,11 @@ GRANT ALL PRIVILEGES ON tqos_asr.sentences TO tq_proxy;
 CREATE TABLE IF NOT EXISTS 
 tqos_asr.documents (
 	id text NOT NULL PRIMARY KEY,
+	label text NOT NULL,
 	document text NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_doc_id ON tqos_asr.documents (id);
+CREATE INDEX IF NOT EXISTS idx_doc_label ON tqos_asr.documents (label);
 
 GRANT ALL PRIVILEGES ON tqos_asr.documents TO tq_proxy;
 

@@ -13,11 +13,25 @@ import net.minidev.json.JSONObject;
  */
 public interface IDocumentClient {
 	
-	IResult put(String docId, JSONObject document);
+	/**
+	 * 
+	 * @param docId
+	 * @param label can not be <code>null</code>
+	 * @param document
+	 * @return 
+	 */
+	IResult put(String docId, String label, JSONObject document);
 	
 	IResult update(String docId, JSONObject document);
 	
 	IResult get(String docId);
+	
+	/**
+	 * Can return nothing or a single document, or a list of documents
+	 * @param label
+	 * @return returns a List of JSONObjects or empty
+	 */
+	IResult findByLabel(String label);
 	
 	IResult remove(String docId);
 	

@@ -37,10 +37,14 @@ public interface IGeneralSchema {
 			"SELECT count(*) FROM tqos_asr.sentences";
 	public static final String
 		INSERT_DOCUMENT =
-			"INSERT INTO tqos_asr.documents VALUES(?, ?)";
+			"INSERT INTO tqos_asr.documents VALUES(?, ?, ?)";
 	public static final String
 		GET_DOCUMENT =
 			"SELECT document FROM tqos_asr.documents WHERE id = ?";
+	public static final String
+		FIND_DOCUMENT =
+			"SELECT document FROM tqos_asr.documents WHERE label = ?";
+
 	public static final String
 		REMOVE_DOCUMENT =
 			"DELETE FROM tqos_asr.documents WHERE id = ?";

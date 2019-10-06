@@ -3,7 +3,6 @@
  */
 package org.topicquests.asr.general;
 
-import org.topicquests.asr.general.api.IGeneralSchema;
 import org.topicquests.asr.general.document.DocumentClient;
 import org.topicquests.asr.general.document.api.IDocumentClient;
 import org.topicquests.asr.general.tuple.TupleClient;
@@ -11,7 +10,6 @@ import org.topicquests.asr.general.tuple.api.ITupleClient;
 import org.topicquests.asr.sentence.SentenceClient;
 import org.topicquests.asr.sentence.api.ISentenceClient;
 import org.topicquests.pg.PostgresConnectionFactory;
-import org.topicquests.pg.api.IPostgresConnection;
 import org.topicquests.support.RootEnvironment;
 import org.topicquests.support.api.IResult;
 
@@ -33,10 +31,19 @@ public class GeneralDatabaseEnvironment extends RootEnvironment {
 	public GeneralDatabaseEnvironment(String schemaName) {
 		super("postgress-props.xml", "logger.properties");
 		String dbName = getStringProperty("DatabaseName");
-                provider = new PostgresConnectionFactory(dbName, schemaName);
+		System.out.println("DB: "+dbName);
+        provider = new PostgresConnectionFactory(dbName, schemaName);
 		sentenceClient = new SentenceClient(this, provider);
 		documentClient = new DocumentClient(this, provider);
 		tupleClient = new TupleClient(this, provider);
+		
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+			
+			@Override
+			public void run() {
+				shutDown();
+			}
+		});
 	}
 	
 	public ISentenceClient getSentenceClient() {
