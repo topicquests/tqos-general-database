@@ -39,6 +39,7 @@ public class DocumentClient implements IDocumentClient {
 	 */
 	@Override
 	public IResult put(String docId, String label, JSONObject document) {
+		environment.logDebug("DocumentClient.put "+docId+" "+label);
 		IResult result = new ResultPojo();
 	    IPostgresConnection conn = null;
 	    IResult r = null;

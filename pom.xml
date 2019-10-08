@@ -128,6 +128,11 @@
 	<artifactId>postgresql</artifactId>
 	<version>42.2.1</version>
       </dependency>
+      <dependency>
+      	<groupId>org.topicquests</groupId>
+      	<artifactId>tqos-asr-api</artifactId>
+      	<version>0.1.0-SNAPSHOT</version>
+      </dependency>
     </dependencies>
 
     <inceptionYear>2018</inceptionYear>
