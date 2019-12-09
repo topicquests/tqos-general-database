@@ -167,7 +167,7 @@ public class ParagraphClient implements IParagraphClient {
 	}
 
 	@Override
-	public IResult listparagraphs(int start, int count) {
+	public IResult listParagraphs(int start, int count) {
 		IResult result = new ResultPojo();
 	    IPostgresConnection conn = null;
 	    IResult r = new ResultPojo();

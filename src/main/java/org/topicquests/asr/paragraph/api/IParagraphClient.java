@@ -39,7 +39,7 @@ public interface IParagraphClient {
 	 * @param count
 	 * @return
 	 */
-	IResult listparagraphs(int start, int count);
+	IResult listParagraphs(int start, int count);
 	
 	/**
 	 * Dangerous: empties the table
