@@ -4,7 +4,7 @@
 
     <groupId>org.topicquests</groupId>
     <artifactId>tqos-general-database</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>0.3.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>tqos-general-database</name>
@@ -121,7 +121,7 @@
       <dependency>
         <groupId>org.topicquests</groupId>
         <artifactId>tqks-postgresql-provider</artifactId>
-        <version>0.9.0-SNAPSHOT</version>
+        <version>0.10.0-SNAPSHOT</version>
       </dependency>
       <dependency>
 	<groupId>org.postgresql</groupId>
@@ -131,7 +131,7 @@
       <dependency>
       	<groupId>org.topicquests</groupId>
       	<artifactId>tqos-asr-api</artifactId>
-      	<version>0.1.0-SNAPSHOT</version>
+      	<version>0.3.0-SNAPSHOT</version>
       </dependency>
     </dependencies>
 

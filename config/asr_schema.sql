@@ -58,5 +58,12 @@ tqos_asr.tuples (
 	tuple text NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_tup_id ON tqos_asr.tuples (id);
-
 GRANT ALL PRIVILEGES ON tqos_asr.tuples TO tq_proxy;
+
+CREATE TABLE IF NOT EXISTS 
+tqos_asr.paragraphs (
+	id text NOT NULL PRIMARY KEY,
+	paragraph text NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_par_id ON tqos_asr.paragraphs (id);
+GRANT ALL PRIVILEGES ON tqos_asr.paragraphs TO tq_proxy;

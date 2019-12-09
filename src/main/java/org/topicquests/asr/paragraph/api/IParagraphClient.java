@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions
  * and limitations under the License.
  */
-package org.topicquests.asr.general.document.api;
+package org.topicquests.asr.paragraph.api;
 
 import org.topicquests.support.api.IResult;
 
@@ -23,29 +23,15 @@ import net.minidev.json.JSONObject;
  * @author jackpark
  *
  */
-public interface IDocumentClient {
+public interface IParagraphClient {
+
+	IResult put(String paraId, JSONObject paragraph);
 	
-	/**
-	 * 
-	 * @param docId
-	 * @param label can not be <code>null</code>
-	 * @param document
-	 * @return 
-	 */
-	IResult put(String docId, String label, JSONObject document);
+	IResult update(String paraId, JSONObject paragraph);
 	
-	IResult update(String docId, JSONObject document);
+	IResult get(String paraId);
 	
-	IResult get(String docId);
-	
-	/**
-	 * Can return nothing or a single document, or a list of documents
-	 * @param label
-	 * @return returns a List of JSONObjects or empty
-	 */
-	IResult findByLabel(String label);
-	
-	IResult remove(String docId);
+	IResult remove(String paraId);
 	
 	/**
 	 * count = -1 means ALL
@@ -53,7 +39,7 @@ public interface IDocumentClient {
 	 * @param count
 	 * @return
 	 */
-	IResult listDocuments(int start, int count);
+	IResult listparagraphs(int start, int count);
 	
 	/**
 	 * Dangerous: empties the table
