@@ -114,4 +114,8 @@ public interface IGeneralSchema {
 	public static final String
 		SIZE_PARAGRAPH =
 			"SELECT count(id) FROM tqos_asr.paragraphs";
+	public static final String
+		LIST_PARAGRAPHS = 
+			"SELECT paragraph FROM tqos_asr.paragraphs";
+
 }
