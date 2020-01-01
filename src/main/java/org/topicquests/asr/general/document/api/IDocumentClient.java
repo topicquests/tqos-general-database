@@ -28,11 +28,14 @@ public interface IDocumentClient {
 	/**
 	 * 
 	 * @param docId
+	 * @param pmid
+	 * @param pmcid
+	 * @param url
 	 * @param label can not be <code>null</code>
 	 * @param document
 	 * @return 
 	 */
-	IResult put(String docId, String label, JSONObject document);
+	IResult put(String docId, String pmid, String pmcid, String url, String label, JSONObject document);
 	
 	IResult update(String docId, JSONObject document);
 	

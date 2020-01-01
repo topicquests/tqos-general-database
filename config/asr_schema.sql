@@ -45,10 +45,16 @@ CREATE TABLE IF NOT EXISTS
 tqos_asr.documents (
 	id text NOT NULL PRIMARY KEY,
 	label text NOT NULL,
+	url	text NOT NULL,
+	pmid text NOT NULL,
+	pmcid text NOT NULL,
 	document text NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_doc_id ON tqos_asr.documents (id);
 CREATE INDEX IF NOT EXISTS idx_doc_label ON tqos_asr.documents (label);
+CREATE INDEX IF NOT EXISTS idx_doc_url ON tqos_asr.documents (url);
+CREATE INDEX IF NOT EXISTS idx_doc_pmid ON tqos_asr.documents (pmid);
+CREATE INDEX IF NOT EXISTS idx_doc_pmcid ON tqos_asr.documents (pmcid);
 
 GRANT ALL PRIVILEGES ON tqos_asr.documents TO tq_proxy;
 

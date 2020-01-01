@@ -50,8 +50,16 @@ public class DocumentClient implements IDocumentClient {
 	 * @see org.topicquests.asr.general.document.api.IDocumentClient#put(java.lang.String, net.minidev.json.JSONObject)
 	 */
 	@Override
-	public IResult put(String docId, String label, JSONObject document) {
+	public IResult put(String docId, String pmid, String pmcid, String url, String label, JSONObject document) {
 		environment.logDebug("DocumentClient.put "+docId+" "+label);
+		String urx = "";
+		if (url != null) urx = url; 
+		String pmx = "";
+		if (pmid != null)
+			pmx = pmid;
+		String pmy = "";
+		if (pmcid != null)
+			pmy = pmcid;
 		IResult result = new ResultPojo();
 	    IPostgresConnection conn = null;
 	    IResult r = null;
@@ -60,10 +68,13 @@ public class DocumentClient implements IDocumentClient {
 			r = conn.beginTransaction();
 			conn.setProxyRole(r);
 			String sql = IGeneralSchema.INSERT_DOCUMENT;
-			Object [] vals = new Object [3];
+			Object [] vals = new Object [6];
 			vals[0] = docId;
 			vals[1] = label;
-			vals[2] = document.toJSONString();
+			vals[2] = urx;
+			vals[3] = pmx;
+			vals[4] = pmy;
+			vals[5] = document.toJSONString();
 			conn.executeSQL(sql, r, vals);
 			environment.logDebug("DocumentClient.put "+r.getErrorString()+" "+r.getResultObject());
 		} catch (Exception e) {

@@ -41,12 +41,12 @@ public class DocumentTest {
 		client = environment.getDocumentClient();
 		JSONObject doc = new JSONObject();
 		doc.put("id", DOC1);
-		IResult r = client.put(DOC1, DOC1, doc);
+		IResult r = client.put(DOC1, "", "", "http://test.com/", DOC1, doc);
 		System.out.println("A "+r.getErrorString()+" | "+r.getResultObject());
 		//A  | 1
 		doc = new JSONObject();
 		doc.put("id", DOC2);
-		r = client.put(DOC2, DOC2, doc);
+		r = client.put(DOC2, "", "", "", DOC2, doc);
 		System.out.println("B "+r.getErrorString()+" | "+r.getResultObject());
 		//B  | 1
 		
