@@ -331,4 +331,85 @@ public class DocumentClient implements IDocumentClient {
 			result.addErrorString(r.getErrorString());
 		return result;	}
 
+	@Override
+	public IResult findByURL(String url) {
+		IResult result = new ResultPojo();
+	    IPostgresConnection conn = null;
+	    IResult r = new ResultPojo();
+	    try {
+	    	conn = provider.getConnection();
+			String sql = IGeneralSchema.FIND_DOCUMENT_BY_URL;
+			conn.executeSelect(sql, r, url);
+			ResultSet rs = (ResultSet)r.getResultObject();
+			if (rs != null && rs.next()) {
+				String json = rs.getString("document");
+				JSONParser p = new JSONParser(JSONParser.MODE_JSON_SIMPLE);
+				JSONObject jo = (JSONObject)p.parse(json);
+				result.setResultObject(jo);
+			}
+		} catch (Exception e) {
+			environment.logError(e.getMessage(), e);
+			result.addErrorString(e.getMessage());
+			e.printStackTrace();
+		}
+	    conn.closeConnection(r);
+		if (r.hasError())
+			result.addErrorString(r.getErrorString());
+		return result;
+	}
+
+	@Override
+	public IResult findByPMID(String pmid) {
+		IResult result = new ResultPojo();
+	    IPostgresConnection conn = null;
+	    IResult r = new ResultPojo();
+	    try {
+	    	conn = provider.getConnection();
+			String sql = IGeneralSchema.FIND_DOCUMENT_BY_PMID;
+			conn.executeSelect(sql, r, pmid);
+			ResultSet rs = (ResultSet)r.getResultObject();
+			if (rs != null && rs.next()) {
+				String json = rs.getString("document");
+				JSONParser p = new JSONParser(JSONParser.MODE_JSON_SIMPLE);
+				JSONObject jo = (JSONObject)p.parse(json);
+				result.setResultObject(jo);
+			}
+		} catch (Exception e) {
+			environment.logError(e.getMessage(), e);
+			result.addErrorString(e.getMessage());
+			e.printStackTrace();
+		}
+	    conn.closeConnection(r);
+		if (r.hasError())
+			result.addErrorString(r.getErrorString());
+		return result;
+	}
+
+	@Override
+	public IResult findByPMCID(String pmcid) {
+		IResult result = new ResultPojo();
+	    IPostgresConnection conn = null;
+	    IResult r = new ResultPojo();
+	    try {
+	    	conn = provider.getConnection();
+			String sql = IGeneralSchema.FIND_DOCUMENT_BY_PMCID;
+			conn.executeSelect(sql, r, pmcid);
+			ResultSet rs = (ResultSet)r.getResultObject();
+			if (rs != null && rs.next()) {
+				String json = rs.getString("document");
+				JSONParser p = new JSONParser(JSONParser.MODE_JSON_SIMPLE);
+				JSONObject jo = (JSONObject)p.parse(json);
+				result.setResultObject(jo);
+			}
+		} catch (Exception e) {
+			environment.logError(e.getMessage(), e);
+			result.addErrorString(e.getMessage());
+			e.printStackTrace();
+		}
+	    conn.closeConnection(r);
+		if (r.hasError())
+			result.addErrorString(r.getErrorString());
+		return result;
+	}
+
 }

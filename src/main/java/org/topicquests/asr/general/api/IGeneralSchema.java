@@ -58,6 +58,16 @@ public interface IGeneralSchema {
 			"SELECT document FROM tqos_asr.documents WHERE label = ?";
 
 	public static final String
+		FIND_DOCUMENT_BY_URL =
+			"SELECT document FROM tqos_asr.documents WHERE url = ?";
+	public static final String
+		FIND_DOCUMENT_BY_PMID =
+			"SELECT document FROM tqos_asr.documents WHERE pmid = ?";
+	public static final String
+		FIND_DOCUMENT_BY_PMCID =
+			"SELECT document FROM tqos_asr.documents WHERE pmcid = ?";
+
+	public static final String
 		REMOVE_DOCUMENT =
 			"DELETE FROM tqos_asr.documents WHERE id = ?";
 	public static final String

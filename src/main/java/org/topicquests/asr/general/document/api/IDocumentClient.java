@@ -48,6 +48,27 @@ public interface IDocumentClient {
 	 */
 	IResult findByLabel(String label);
 	
+	/**
+	 * Should only return one doc if any
+	 * @param url
+	 * @return
+	 */
+	IResult findByURL(String url);
+	
+	/**
+	 * Should only return one doc if any
+	 * @param pmid
+	 * @return
+	 */
+	IResult findByPMID(String pmid);
+
+	IResult findByPMCID(String pmcid);
+
+	/**
+	 * Should only return one doc if any
+	 * @param docId
+	 * @return
+	 */
 	IResult remove(String docId);
 	
 	/**
