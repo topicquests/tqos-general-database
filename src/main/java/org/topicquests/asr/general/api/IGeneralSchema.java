@@ -49,7 +49,7 @@ public interface IGeneralSchema {
 			"SELECT count(id) FROM tqos_asr.sentences";
 	public static final String
 		INSERT_DOCUMENT =
-			"INSERT INTO tqos_asr.documents VALUES(?, ?, ?)";
+			"INSERT INTO tqos_asr.documents VALUES(?, ?, ?, ?, ?, ?)";
 	public static final String
 		GET_DOCUMENT =
 			"SELECT document FROM tqos_asr.documents WHERE id = ?";
@@ -108,7 +108,7 @@ public interface IGeneralSchema {
 			"SELECT count(id) FROM tqos_asr.tuples";
 	public static final String
 		INSERT_PARAGRAPH =
-			"INSERT INTO tqos_asr.paragraphs VALUES(?, ?, ?, ?)";
+			"INSERT INTO tqos_asr.paragraphs VALUES(?, ?)";
 	public static final String
 		GET_PARAGRAPH =
 			"SELECT paragraph FROM tqos_asr.paragraphs WHERE id = ?";

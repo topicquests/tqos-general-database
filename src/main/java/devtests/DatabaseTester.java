@@ -31,8 +31,8 @@ public class DatabaseTester {
 		//new DocumentTest();
 		//new TupleTest();
 		//new FindTest();
-		new ListTest();
-
+		//new ListTest();
+		new DocFetchTest();
 	}
 
 }
